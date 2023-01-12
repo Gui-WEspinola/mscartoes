@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: mscartoes
+
+server:
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${URL}
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value} }
+
+    # instance ID diz respeito ao registro do microserviço no ecossistema da cloud
+
