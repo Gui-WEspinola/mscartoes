@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor // Cria construtores só os com argumentos obrigatórios (que tem final)
 public class CardService {
 
     private final CardRepository cardRepository;
@@ -22,7 +22,7 @@ public class CardService {
 
     public List<Card> getCardIncomeLessThanEqual(Long income) {
         var incomeBigDecimal = BigDecimal.valueOf(income);
-        return cardRepository.findByIncomeLessThanEqual(incomeBigDecimal);
+        return cardRepository.findByIncomeLessThanOrEqual(incomeBigDecimal);
     }
 
 

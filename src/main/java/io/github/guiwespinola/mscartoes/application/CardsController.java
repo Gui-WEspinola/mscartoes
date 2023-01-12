@@ -1,8 +1,11 @@
 package io.github.guiwespinola.mscartoes.application;
 
 import io.github.guiwespinola.mscartoes.application.dto.CardSaveRequest;
+import io.github.guiwespinola.mscartoes.application.representation.CardsByClientResponse;
 import io.github.guiwespinola.mscartoes.domain.Card;
+import io.github.guiwespinola.mscartoes.domain.ClientCard;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,6 +19,8 @@ import java.util.List;
 public class CardsController {
 
     private final CardService cardService;
+
+    private final ClientCardService clientCardService;
 
     @GetMapping
     public String status() {
@@ -36,6 +41,17 @@ public class CardsController {
     public ResponseEntity<List<Card>> getCardIncomeLessThan(@RequestParam Long income) {
         List<Card> cardList = cardService.getCardIncomeLessThanEqual(income);
         return ResponseEntity.ok(cardList);
+    }
+
+    @GetMapping(params = "cpf")
+    public ResponseEntity<List<CardsByClientResponse>> getCardsByClient(@RequestParam String cpf) {
+        List<ClientCard> clientCards = clientCardService.listCardsByCpf(cpf);
+        List<CardsByClientResponse> resultList = clientCards
+                .stream()
+                .map(CardsByClientResponse::fromModel)
+                .toList();
+
+        return ResponseEntity.ok(resultList);
     }
 
 }

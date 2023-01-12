@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface CardRepository extends JpaRepository<Card, Long> {
     @Query("select c from Card c where c.income <= ?1")
-    List<Card> findByIncomeLessThanEqual(BigDecimal income);
+    List<Card> findByIncomeLessThanOrEqual(BigDecimal income);
 
 }
