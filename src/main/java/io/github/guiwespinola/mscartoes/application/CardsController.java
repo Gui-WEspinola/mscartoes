@@ -3,9 +3,8 @@ package io.github.guiwespinola.mscartoes.application;
 import io.github.guiwespinola.mscartoes.application.dto.CardSaveRequest;
 import io.github.guiwespinola.mscartoes.application.representation.CardsByClientResponse;
 import io.github.guiwespinola.mscartoes.domain.Card;
-import io.github.guiwespinola.mscartoes.domain.ClientCard;
+import io.github.guiwespinola.mscartoes.domain.CustomerCard;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,7 +19,7 @@ public class CardsController {
 
     private final CardService cardService;
 
-    private final ClientCardService clientCardService;
+    private final CustomerCardService customerCardService;
 
     @GetMapping
     public String status() {
@@ -45,8 +44,8 @@ public class CardsController {
 
     @GetMapping(params = "cpf")
     public ResponseEntity<List<CardsByClientResponse>> getCardsByClient(@RequestParam String cpf) {
-        List<ClientCard> clientCards = clientCardService.listCardsByCpf(cpf);
-        List<CardsByClientResponse> resultList = clientCards
+        List<CustomerCard> customerCards = customerCardService.listCardsByCpf(cpf);
+        List<CardsByClientResponse> resultList = customerCards
                 .stream()
                 .map(CardsByClientResponse::fromModel)
                 .toList();

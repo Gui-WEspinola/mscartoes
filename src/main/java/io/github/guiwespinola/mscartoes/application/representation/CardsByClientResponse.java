@@ -1,6 +1,6 @@
 package io.github.guiwespinola.mscartoes.application.representation;
 
-import io.github.guiwespinola.mscartoes.domain.ClientCard;
+import io.github.guiwespinola.mscartoes.domain.CustomerCard;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ public class CardsByClientResponse {
 
     private BigDecimal allowedCreditLimit;
 
-    public static CardsByClientResponse fromModel(ClientCard model) {
+    public static CardsByClientResponse fromModel(CustomerCard model) {
         return new CardsByClientResponse(
                 model.getCard().getName(),
                 model.getCard().getFlag().toString(),
